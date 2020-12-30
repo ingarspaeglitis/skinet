@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Skinet';
-  faCoffee = faCoffee;
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.http.get('https://localhost:44313/api/products').subscribe((response: any) => {
+        console.log(response);
+    }, error => {
+        console.log(error);
+    });
+  }
+
 }
